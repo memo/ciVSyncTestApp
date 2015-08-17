@@ -1,0 +1,63 @@
+#pragma once
+
+#include "cinder/Utilities.h"
+#include <chrono>
+
+inline double lerpDown(double newValue, double oldValue, double dropSpeed = 1, double snapThresh = 100) {
+	return (newValue > oldValue) || (fabs(newValue - oldValue) > snapThresh) ? newValue : oldValue - dropSpeed;
+}
+
+class TimingStats {
+public:
+	TimingStats() {
+		renderStartTime = std::chrono::high_resolution_clock::now();
+	}
+
+	std::string getStatsDetailed() const {
+		std::string s;
+		s += "Frame: " + ci::toString(ci::app::getElapsedFrames()) + "\n";
+		s += "RAW         - ";
+		s += "Total  : " + ci::toString((int)frameMS) + " ms, ";
+		s += "Render : " + ci::toString((int)renderMS) + " ms";
+		s += "\n";
+		s += "SMOOTH - ";
+		s += "Total  : " + ci::toString((int)frameMSSmooth) + " ms, ";
+		s += "Render : " + ci::toString((int)renderMSSmooth) + " ms";
+		s += "\n";
+		return s;
+	}
+
+	std::string getStatsCompact() const {
+		std::string s;
+		s += "	Frame:	" + ci::toString(ci::app::getElapsedFrames()) + "	";
+		s += "RAW:	";
+		s += "Total:	" + ci::toString((int)frameMS) + "	";
+		s += "Render:	" + ci::toString((int)renderMS);
+		return s;
+	}
+
+
+	void renderStart() {
+		auto now = std::chrono::high_resolution_clock::now();
+		frameMS = (double)std::chrono::duration_cast<std::chrono::milliseconds>(now - renderStartTime).count();
+		frameMSSmooth = lerpDown(frameMS, frameMSSmooth);
+		renderStartTime = now;
+	}
+
+	void renderEnd() {
+		renderMS = (double)std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - renderStartTime).count();
+		renderMSSmooth = lerpDown(renderMS, renderMSSmooth);
+	}
+
+
+private:
+	typedef std::chrono::high_resolution_clock::time_point	TimePointT;
+	TimePointT	updateStartTime;
+	TimePointT	renderStartTime;
+	double		frameMSSmooth = 0;
+	double		renderMSSmooth = 0;
+
+	double		frameMS = 0;
+	double		renderMS = 0;
+
+};
