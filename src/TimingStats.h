@@ -15,6 +15,7 @@ public:
 
 	std::string getStatsDetailed() const {
 		std::string s;
+		s += "Time:	" + ci::toString(ci::app::getElapsedSeconds()) + "\n";
 		s += "Frame: " + ci::toString(ci::app::getElapsedFrames()) + "\n";
 		s += "RAW         - ";
 		s += "Total  : " + ci::toString((int)frameMS) + " ms, ";
@@ -29,7 +30,8 @@ public:
 
 	std::string getStatsCompact() const {
 		std::string s;
-		s += "	Frame:	" + ci::toString(ci::app::getElapsedFrames()) + "	";
+		s += "Time:	" + ci::toString(ci::app::getElapsedSeconds()) + "	";
+		s += "Frame:	" + ci::toString(ci::app::getElapsedFrames()) + "	";
 		s += "RAW:	";
 		s += "Total:	" + ci::toString((int)frameMS) + "	";
 		s += "Render:	" + ci::toString((int)renderMS);

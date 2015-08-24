@@ -8,7 +8,7 @@ using namespace ci;
 using namespace ci::app;
 
 static const std::string kAppName = "VSyncTest";
-static const int kVersion = 2;
+static const int kVersion = 3;
 static const std::string kVersionString = kAppName + " v" + ci::toString(kVersion);
 
 class VSyncTest : public App {
