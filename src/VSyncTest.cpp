@@ -2,13 +2,15 @@
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Log.h"
-#include "TimingStats.h"
+
+#include "FrameTimerChronoHigh.h"
+#include "FrameTimerChronoSystem.h"
 
 using namespace ci;
 using namespace ci::app;
 
 static const std::string kAppName = "VSyncTest";
-static const int kVersion = 4;
+static const int kVersion = 5;
 static const std::string kVersionString = kAppName + " v" + ci::toString(kVersion);
 
 class VSyncTest : public App {
@@ -17,7 +19,7 @@ public:
 	void draw() override;
 
 private:
-	std::shared_ptr<TimingStats>	timingStats;
+	std::vector< std::shared_ptr<FrameTimerBase> >	timers;
 };
 
 
@@ -34,7 +36,6 @@ const std::string getCurrentDateTimeString()
 
 
 void VSyncTest::setup() {
-	timingStats = std::shared_ptr<TimingStats>(new TimingStats);
 	ci::log::LogManager::instance()->enableFileLogging(boost::filesystem::current_path() / boost::filesystem::path(kAppName + "_Logs") / boost::filesystem::path(kAppName + "_" + getCurrentDateTimeString() + ".log"));
 	ci::log::LogManager::instance()->enableConsoleLogging();
 
@@ -46,32 +47,55 @@ void VSyncTest::setup() {
 		ci::app::setFullScreen(!ci::app::isFullScreen());
 	});
 
-	CI_LOG_I("std::chrono::high_resolution_clock precision: " + timingStats->getPrecisionStr());
+	timers.push_back(std::make_shared<FrameTimerChronoSystem>());
+	timers.push_back(std::make_shared<FrameTimerChronoHigh>());
+
+	for(auto t : timers) CI_LOG_I(t->getPrecisionStr());
 }
 
 void VSyncTest::draw()
 {
-	gl::clear(ci::Color(0, 0, 0));
-	timingStats->renderStart();
-
-	std::string s= kVersionString + "\n";
-	s += "std::chrono::high_resolution_clock precision " + timingStats->getPrecisionStr() + "\n";
-	s += timingStats->getStatsDetailedStr();
-//	ci::gl::drawString(s, ci::vec2(10, 10), ci::Color(1, 1, 1));
-
-	TextLayout layout;
-	layout.clear(Color(0, 0, 0));
-	layout.setFont(Font("Arial", 18));
-	layout.setColor( Color( 1.0f, 1.0f, 1.0f ) );
-	layout.addLine(s);
-
-	Surface8u rendered = layout.render( true, true);
-	gl::color( Color::white() );
-	gl::draw( gl::Texture2d::create( rendered ), vec2( 10, 10 ) );
+	// start all timers
+	for(auto t : timers) {
+		t->renderStart();
+	}
 
 
-	timingStats->renderEnd();
-	CI_LOG_I(timingStats->getStatsCompactStr());
+	gl::clear(Color::black());
+	gl::color(Color::white());
+
+	std::string str;
+	str += kVersionString + "\n";
+	str += FrameTimerBase::getTimeDetailedStr() + "\n";
+	str += "\n";
+
+	// add all text
+	for(auto t : timers) {
+		str += t->getPrecisionStr()+ "\n";
+		str += t->getStatsDetailedStr() + "\n";
+		str += "\n";
+	}
+
+	// draw text
+	TextLayout textLayout;
+	textLayout.clear(Color(Color::black()));
+	textLayout.setFont(Font("Arial", 18));
+	textLayout.setColor(Color::white());
+	textLayout.addLine(str);
+	gl::draw( gl::Texture2d::create( textLayout.render( true, true) ), vec2( 10, 10 ) );
+
+
+	// log
+	CI_LOG_I(FrameTimerBase::getTimeCompactStr());
+	for(auto t : timers) {
+		CI_LOG_I(t->getStatsCompactStr());
+	}
+
+
+	// end all timers
+	for(auto t : timers) {
+		t->renderEnd();
+	}
 }
 
 // This line tells Cinder to actually create and run the application.

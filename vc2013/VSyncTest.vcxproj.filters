@@ -21,7 +21,13 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\TimingStats.h">
+    <ClInclude Include="..\src\FrameTimerBase.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\FrameTimerChronoHigh.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\FrameTimerChronoSystem.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
