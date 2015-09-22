@@ -13,7 +13,13 @@ public:
 		renderStartTime = std::chrono::high_resolution_clock::now();
 	}
 
-	std::string getStatsDetailed() const {
+	std::string getPrecisionStr() const {
+		std::chrono::duration<double, std::nano> ns = std::chrono::high_resolution_clock::duration(1);
+		return ci::toString(ns.count()) + " ns";
+//		return ci::toString(1000000000.0 * std::chrono::high_resolution_clock::period::num / std::chrono::high_resolution_clock::period::den) + " ns";
+	}
+
+	std::string getStatsDetailedStr() const {
 		std::string s;
 		s += "Time:	" + ci::toString(ci::app::getElapsedSeconds()) + "\n";
 		s += "Frame: " + ci::toString(ci::app::getElapsedFrames()) + "\n";
@@ -28,7 +34,7 @@ public:
 		return s;
 	}
 
-	std::string getStatsCompact() const {
+	std::string getStatsCompactStr() const {
 		std::string s;
 		s += "Time:	" + ci::toString(ci::app::getElapsedSeconds()) + "	";
 		s += "Frame:	" + ci::toString(ci::app::getElapsedFrames()) + "	";

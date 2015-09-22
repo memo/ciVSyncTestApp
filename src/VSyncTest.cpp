@@ -8,7 +8,7 @@ using namespace ci;
 using namespace ci::app;
 
 static const std::string kAppName = "VSyncTest";
-static const int kVersion = 3;
+static const int kVersion = 4;
 static const std::string kVersionString = kAppName + " v" + ci::toString(kVersion);
 
 class VSyncTest : public App {
@@ -45,6 +45,8 @@ void VSyncTest::setup() {
 	{
 		ci::app::setFullScreen(!ci::app::isFullScreen());
 	});
+
+	CI_LOG_I("std::chrono::high_resolution_clock precision: " + timingStats->getPrecisionStr());
 }
 
 void VSyncTest::draw()
@@ -52,10 +54,12 @@ void VSyncTest::draw()
 	gl::clear(ci::Color(0, 0, 0));
 	timingStats->renderStart();
 
-	std::string s= kVersionString + "\n" + timingStats->getStatsDetailed();
+	std::string s= kVersionString + "\n";
+	s += "std::chrono::high_resolution_clock precision " + timingStats->getPrecisionStr() + "\n";
+	s += timingStats->getStatsDetailedStr();
 	ci::gl::drawString(s, ci::vec2(10, 10), ci::Color(1, 1, 1));
 	timingStats->renderEnd();
-	CI_LOG_I(timingStats->getStatsCompact());
+	CI_LOG_I(timingStats->getStatsCompactStr());
 }
 
 // This line tells Cinder to actually create and run the application.
