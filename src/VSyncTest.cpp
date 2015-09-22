@@ -11,7 +11,7 @@ using namespace ci;
 using namespace ci::app;
 
 static const std::string kAppName = "VSyncTest";
-static const int kVersion = 5;
+static const int kVersion = 6;
 static const std::string kVersionString = kAppName + " v" + ci::toString(kVersion);
 
 class VSyncTest : public App {
@@ -52,7 +52,7 @@ void VSyncTest::setup() {
 	timers.push_back(std::make_shared<FrameTimerChronoSystem>());
 	timers.push_back(std::make_shared<FrameTimerChronoHigh>());
 
-	for(auto t : timers) CI_LOG_I(t->getPrecisionStr());
+	for(auto t : timers) CI_LOG_I(t->getResolutionStr());
 }
 
 void VSyncTest::draw()
@@ -73,7 +73,7 @@ void VSyncTest::draw()
 
 	// add all text
 	for(auto t : timers) {
-		str += t->getPrecisionStr()+ "\n";
+		str += t->getResolutionStr()+ "\n";
 		str += t->getStatsDetailedStr() + "\n";
 		str += "\n";
 	}

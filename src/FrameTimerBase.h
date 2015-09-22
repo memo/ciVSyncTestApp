@@ -7,7 +7,7 @@ public:
 	virtual ~FrameTimerBase() {}
 
 	virtual std::string getNameStr() const = 0;
-	virtual double getPrecisionNS() const = 0;
+	virtual double getResolutionNS() const = 0;
 	virtual void renderStart() = 0;
 	virtual void renderEnd() = 0;
 
@@ -18,8 +18,8 @@ public:
 		return s;
 	}
 
-	std::string getPrecisionStr() const {
-		return getNameStr() + " precision: " + ci::toString(getPrecisionNS()) + " ns";
+	std::string getResolutionStr() const {
+		return getNameStr() + " resolution: " + ci::toString(getResolutionNS()) + " ns";
 	}
 
 	std::string getStatsDetailedStr() const {

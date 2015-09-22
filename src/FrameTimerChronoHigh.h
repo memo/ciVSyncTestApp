@@ -13,7 +13,7 @@ public:
 		return "chrono::high_resolution_clock";
 	}
 
-	double getPrecisionNS() const override {
+	double getResolutionNS() const override {
 		std::chrono::duration<double, std::nano> ns = std::chrono::high_resolution_clock::duration(1);
 		return ns.count();
 	}

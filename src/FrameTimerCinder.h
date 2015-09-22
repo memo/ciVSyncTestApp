@@ -16,7 +16,7 @@ public:
 		return "cinder internal (QueryPerformanceCounter)";
 	}
 
-	double getPrecisionNS() const override {
+	double getResolutionNS() const override {
 #if (defined( CINDER_MSW ) || defined( CINDER_WINRT))
 		LARGE_INTEGER freq;
 		QueryPerformanceFrequency(&freq);
