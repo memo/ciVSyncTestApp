@@ -3,6 +3,7 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Log.h"
 
+#include "FrameTimerCinder.h"
 #include "FrameTimerChronoHigh.h"
 #include "FrameTimerChronoSystem.h"
 
@@ -47,6 +48,7 @@ void VSyncTest::setup() {
 		ci::app::setFullScreen(!ci::app::isFullScreen());
 	});
 
+	timers.push_back(std::make_shared<FrameTimerCinder>());
 	timers.push_back(std::make_shared<FrameTimerChronoSystem>());
 	timers.push_back(std::make_shared<FrameTimerChronoHigh>());
 
@@ -66,7 +68,7 @@ void VSyncTest::draw()
 
 	std::string str;
 	str += kVersionString + "\n";
-	str += FrameTimerBase::getTimeDetailedStr() + "\n";
+	str += FrameTimerBase::getTimeStr() + "\n";
 	str += "\n";
 
 	// add all text
@@ -86,7 +88,7 @@ void VSyncTest::draw()
 
 
 	// log
-	CI_LOG_I(FrameTimerBase::getTimeCompactStr());
+	CI_LOG_I(FrameTimerBase::getTimeStr());
 	for(auto t : timers) {
 		CI_LOG_I(t->getStatsCompactStr());
 	}

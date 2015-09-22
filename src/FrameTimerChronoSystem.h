@@ -32,6 +32,5 @@ public:
 
 private:
 	typedef std::chrono::system_clock::time_point	TimePointT;
-	TimePointT	updateStartTime;
 	TimePointT	renderStartTime;
 };

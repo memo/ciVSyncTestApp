@@ -11,20 +11,12 @@ public:
 	virtual void renderStart() = 0;
 	virtual void renderEnd() = 0;
 
-	static std::string getTimeDetailedStr() {
+	static std::string getTimeStr() {
 		std::string s;
-		s += "Time:	" + ci::toString(ci::app::getElapsedSeconds()) + "\n";
-		s += "Frame: " + ci::toString(ci::app::getElapsedFrames()) + "\n";
-		return s;
-	}
-
-	static std::string getTimeCompactStr() {
-		std::string s;
+		s += "Frame: " + ci::toString(ci::app::getElapsedFrames()) + "	";
 		s += "Time:	" + ci::toString(ci::app::getElapsedSeconds()) + "	";
-		s += "Frame:	" + ci::toString(ci::app::getElapsedFrames()) + "	";
 		return s;
 	}
-
 
 	std::string getPrecisionStr() const {
 		return getNameStr() + " precision: " + ci::toString(getPrecisionNS()) + " ns";

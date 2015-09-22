@@ -274,6 +274,7 @@ xcopy /y "..\..\..\lib\msw\x86\d3dcompiler_46.dll" "$(OutDir)"</Command>
     <ClInclude Include="..\src\FrameTimerBase.h" />
     <ClInclude Include="..\src\FrameTimerChronoHigh.h" />
     <ClInclude Include="..\src\FrameTimerChronoSystem.h" />
+    <ClInclude Include="..\src\FrameTimerCinder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\VSyncTest.cpp" />

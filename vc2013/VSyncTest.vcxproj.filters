@@ -30,5 +30,8 @@
     <ClInclude Include="..\src\FrameTimerChronoSystem.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\FrameTimerCinder.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
