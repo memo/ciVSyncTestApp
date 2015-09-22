@@ -1,0 +1,11 @@
+ce7e93d (HEAD, tag: v7, origin/master, origin/HEAD, master) tab formatting in output log so it can be read better in excel etc
+652fe0d (tag: v6) precision -> resolution
+b95dfbf added internal timer (QueryPerformanceFrequency on windows)
+a3627e4 (tag: v5) refactored timer and added multiple implementations
+fc268f7 better font rendering
+60dbbdd (tag: v4) added precision dump
+c03ebdc (tag: v3) added elapsed time
+2d9daa0 Merge branch 'master' of https://github.com/memo/ciVSyncTestApp
+72fef03 Initial commit
+7b0c2ed added readme
+0855ff9 first commmit
