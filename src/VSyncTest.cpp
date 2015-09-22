@@ -57,7 +57,19 @@ void VSyncTest::draw()
 	std::string s= kVersionString + "\n";
 	s += "std::chrono::high_resolution_clock precision " + timingStats->getPrecisionStr() + "\n";
 	s += timingStats->getStatsDetailedStr();
-	ci::gl::drawString(s, ci::vec2(10, 10), ci::Color(1, 1, 1));
+//	ci::gl::drawString(s, ci::vec2(10, 10), ci::Color(1, 1, 1));
+
+	TextLayout layout;
+	layout.clear(Color(0, 0, 0));
+	layout.setFont(Font("Arial", 18));
+	layout.setColor( Color( 1.0f, 1.0f, 1.0f ) );
+	layout.addLine(s);
+
+	Surface8u rendered = layout.render( true, true);
+	gl::color( Color::white() );
+	gl::draw( gl::Texture2d::create( rendered ), vec2( 10, 10 ) );
+
+
 	timingStats->renderEnd();
 	CI_LOG_I(timingStats->getStatsCompactStr());
 }
