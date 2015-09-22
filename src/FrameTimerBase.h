@@ -13,13 +13,13 @@ public:
 
 	static std::string getTimeStr() {
 		std::string s;
-		s += "Frame: " + ci::toString(ci::app::getElapsedFrames()) + "	";
+		s += "Frame:	" + ci::toString(ci::app::getElapsedFrames()) + "	";
 		s += "Time:	" + ci::toString(ci::app::getElapsedSeconds()) + "	";
 		return s;
 	}
 
 	std::string getResolutionStr() const {
-		return getNameStr() + " resolution: " + ci::toString(getResolutionNS()) + " ns";
+		return "Resolution:	" + getNameStr() + "	" + ci::toString(getResolutionNS()) + " ns";
 	}
 
 	std::string getStatsDetailedStr() const {
@@ -37,6 +37,7 @@ public:
 
 	std::string getStatsCompactStr() const {
 		std::string s;
+		s += "Delta:	";
 		s += getNameStr() + "	";
 		s += "Total:	" + ci::toString(frameMS) + "	";
 		s += "Render:	" + ci::toString(renderMS);

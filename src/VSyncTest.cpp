@@ -11,7 +11,7 @@ using namespace ci;
 using namespace ci::app;
 
 static const std::string kAppName = "VSyncTest";
-static const int kVersion = 6;
+static const int kVersion = 7;
 static const std::string kVersionString = kAppName + " v" + ci::toString(kVersion);
 
 class VSyncTest : public App {
@@ -40,7 +40,7 @@ void VSyncTest::setup() {
 	ci::log::LogManager::instance()->enableFileLogging(boost::filesystem::current_path() / boost::filesystem::path(kAppName + "_Logs") / boost::filesystem::path(kAppName + "_" + getCurrentDateTimeString() + ".log"));
 	ci::log::LogManager::instance()->enableConsoleLogging();
 
-	CI_LOG_I("Starting " + kVersionString);
+	CI_LOG_I("Starting:	" + kVersionString);
 
 	ci::gl::enableVerticalSync(true);
 	ci::app::getWindow()->getSignalKeyDown().connect(0, [&](ci::app::KeyEvent & event)
