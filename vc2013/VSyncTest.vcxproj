@@ -30,7 +30,7 @@
     <ProjectGuid>{9EA67F39-A8C1-438A-9860-37E9AC13BEB7}</ProjectGuid>
     <RootNamespace>BasicApp</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <ProjectName>VSyncTest</ProjectName>
+    <ProjectName>ciVSyncTest</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -271,13 +271,15 @@ xcopy /y "..\..\..\lib\msw\x86\d3dcompiler_46.dll" "$(OutDir)"</Command>
     <ResourceCompile Include="Resources.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\common.h" />
     <ClInclude Include="..\src\FrameTimerBase.h" />
     <ClInclude Include="..\src\FrameTimerChronoHigh.h" />
     <ClInclude Include="..\src\FrameTimerChronoSystem.h" />
-    <ClInclude Include="..\src\FrameTimerCinder.h" />
+    <ClInclude Include="..\src\FrameTimerInternal.h" />
+    <ClInclude Include="..\src\utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\VSyncTest.cpp" />
+    <ClCompile Include="..\src\ciVSyncTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

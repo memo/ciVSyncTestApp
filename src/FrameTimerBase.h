@@ -1,7 +1,5 @@
 #pragma once
 
-#include "cinder/Utilities.h"
-
 class FrameTimerBase {
 public:
 	virtual ~FrameTimerBase() {}
@@ -13,24 +11,24 @@ public:
 
 	static std::string getTimeStr() {
 		std::string s;
-		s += "Frame:	" + ci::toString(ci::app::getElapsedFrames()) + "	";
-		s += "Time:	" + ci::toString(ci::app::getElapsedSeconds()) + "	";
+		s += "Frame:	" + msaToString(msaGetElapsedFrames()) + "	";
+		s += "Time:	" + msaToStringFixedDigits(msaGetElapsedSeconds()) + "	";
 		return s;
 	}
 
 	std::string getResolutionStr() const {
-		return "Resolution:	" + getNameStr() + "	" + ci::toString(getResolutionNS()) + " ns";
+		return getNameStr() + "	Resolution:	" + msaToStringFixedDigits(getResolutionNS()) + " ns";
 	}
 
 	std::string getStatsDetailedStr() const {
 		std::string s;
 		s += "RAW - ";
-		s += "Total  : " + ci::toString(frameMS) + " ms, ";
-		s += "Render : " + ci::toString(renderMS) + " ms";
+		s += "Total  : " + msaToStringFixedDigits(frameMS) + " ms	";
+		s += "Render : " + msaToStringFixedDigits(renderMS) + " ms";
 		s += "\n";
 		s += "AVG - ";
-		s += "Total  : " + ci::toString(frameMSAvg) + " ms, ";
-		s += "Render : " + ci::toString(renderMSAvg) + " ms";
+		s += "Total  : " + msaToStringFixedDigits(frameMSAvg) + " ms	";
+		s += "Render : " + msaToStringFixedDigits(renderMSAvg) + " ms";
 		s += "\n";
 		return s;
 	}
@@ -39,12 +37,12 @@ public:
 		std::string s;
 		s += "Delta:	";
 		s += getNameStr() + "	";
-		s += "Total:	" + ci::toString(frameMS) + "	";
-		s += "Render:	" + ci::toString(renderMS);
+		s += "Total:	" + msaToStringFixedDigits(frameMS) + "	";
+		s += "Render:	" + msaToStringFixedDigits(renderMS);
 		return s;
 	}
 
-	void updateAvgs() { 
+	void updateAvgs() {
 		frameMSAvg += (frameMS - frameMSAvg) * 0.1;
 		renderMSAvg = (renderMS - renderMSAvg) * 0.1;
 	}

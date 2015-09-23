@@ -11,11 +11,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\VSyncTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="Resources.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
@@ -30,8 +25,19 @@
     <ClInclude Include="..\src\FrameTimerChronoSystem.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\FrameTimerCinder.h">
+    <ClInclude Include="..\src\FrameTimerInternal.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\common.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\utils.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\ciVSyncTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

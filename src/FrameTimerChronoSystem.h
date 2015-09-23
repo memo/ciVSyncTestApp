@@ -20,12 +20,12 @@ public:
 
 	void renderStart() override {
 		auto now = std::chrono::system_clock::now();
-		frameMS = (double)std::chrono::duration_cast<std::chrono::milliseconds>(now - renderStartTime).count();
+		frameMS = 0.000001 * (double)std::chrono::duration_cast<std::chrono::nanoseconds>(now - renderStartTime).count();
 		renderStartTime = now;
 	}
 
 	void renderEnd() override {
-		renderMS = (double)std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - renderStartTime).count();
+		renderMS = 0.000001 * (double)std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now() - renderStartTime).count();
 		updateAvgs();
 	}
 
